@@ -1,0 +1,61 @@
+//Задайте двумерный массив. Напишите программу, которая упорядочит по убыванию элементы каждой строки двумерного массива.
+
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        // Создание двумерного массива
+        int[,] array = {
+            { 5, 9, 2, 7 },
+            { 1, 8, 3, 6 },
+            { 4, 7, 9, 2 }
+        };
+
+        // Вывод исходного массива
+        Console.WriteLine("Исходный массив:");
+        PrintArray(array);
+
+        // Упорядочивание элементов каждой строки по убыванию
+        int rows = array.GetLength(0);
+        int columns = array.GetLength(1);
+
+        for (int i = 0; i < rows; i++)
+        {
+            // Сортировка элементов текущей строки
+            for (int j = 0; j < columns - 1; j++)
+            {
+                for (int k = j + 1; k < columns; k++)
+                {
+                    if (array[i, j] < array[i, k])
+                    {
+                        int temp = array[i, j];
+                        array[i, j] = array[i, k];
+                        array[i, k] = temp;
+                    }
+                }
+            }
+        }
+
+        // Вывод упорядоченного массива
+        Console.WriteLine("Упорядоченный массив:");
+        PrintArray(array);
+    }
+
+    // Метод для вывода массива
+    static void PrintArray(int[,] array)
+    {
+        int rows = array.GetLength(0);
+        int columns = array.GetLength(1);
+
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < columns; j++)
+            {
+                Console.Write(array[i, j] + " ");
+            }
+            Console.WriteLine();
+        }
+    }
+}
