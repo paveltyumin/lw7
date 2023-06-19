@@ -1,0 +1,78 @@
+//Напишите программу, которая заполнит спирально массив 4 на 4.
+
+using System;
+
+class Program
+{
+    static void Main()
+    {
+        int[,] array = GenerateSpiralArray(4, 4);
+
+        Console.WriteLine("Спиральный массив:");
+        PrintArray(array);
+    }
+
+    static int[,] GenerateSpiralArray(int rows, int columns)
+    {
+        int[,] array = new int[rows, columns];
+        int value = 1;
+        int top = 0;
+        int bottom = rows - 1;
+        int left = 0;
+        int right = columns - 1;
+
+        while (top <= bottom && left <= right)
+        {
+            // Заполнение верхней строки
+            for (int i = left; i <= right; i++)
+            {
+                array[top, i] = value++;
+            }
+            top++;
+
+            // Заполнение правого столбца
+            for (int i = top; i <= bottom; i++)
+            {
+                array[i, right] = value++;
+            }
+            right--;
+
+            // Заполнение нижней строки
+            if (top <= bottom)
+            {
+                for (int i = right; i >= left; i--)
+                {
+                    array[bottom, i] = value++;
+                }
+                bottom--;
+            }
+
+            // Заполнение левого столбца
+            if (left <= right)
+            {
+                for (int i = bottom; i >= top; i--)
+                {
+                    array[i, left] = value++;
+                }
+                left++;
+            }
+        }
+
+        return array;
+    }
+
+    static void PrintArray(int[,] array)
+    {
+        int rows = array.GetLength(0);
+        int columns = array.GetLength(1);
+
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < columns; j++)
+            {
+                Console.Write($"{array[i, j],-3}");
+            }
+            Console.WriteLine();
+        }
+    }
+}
